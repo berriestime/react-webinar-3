@@ -26,3 +26,23 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function getEnding(count) {
+  const lastDigit = count % 10;
+  const lastTwoDigits = count % 100;
+
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
+    return 'раз';
+  }
+
+  switch (lastDigit) {
+    case 1:
+      return 'раз';
+    case 2:
+    case 3:
+    case 4:
+      return 'раза';
+    default:
+      return 'раз';
+  }
+}
