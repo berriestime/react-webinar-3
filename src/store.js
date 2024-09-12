@@ -47,7 +47,10 @@ class Store {
     this.code += 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code, title: 'Новая запись' }],
+      list: [
+        ...this.state.list,
+        { code, title: 'Новая запись', selected: false, selectedCount: 0 },
+      ],
     });
   }
 
@@ -72,6 +75,9 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          if (item.selected) {
+            item.selectedCount += 1;
+          }
         } else {
           item.selected = false;
         }
