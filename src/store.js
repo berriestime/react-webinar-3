@@ -5,7 +5,10 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
-    this.code = 8; // Код для новой записи
+    // Код для новой записи - новый уникальный идентификатор, который не был в списках
+    this.code =
+      Array.from(this.state.list, item => item.code).reduce((max, code) => Math.max(max, code), 0) +
+      1;
   }
 
   /**
