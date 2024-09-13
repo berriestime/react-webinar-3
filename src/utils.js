@@ -28,21 +28,25 @@ export function createElement(name, props = {}, ...children) {
 }
 
 export function getEnding(count) {
+  return pluralize(count, ['раз', 'раза', 'раз']);
+}
+
+export function pluralize(count, variants) {
   const lastDigit = count % 10;
   const lastTwoDigits = count % 100;
 
   if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
-    return 'раз';
+    return variants[2];
   }
 
   switch (lastDigit) {
     case 1:
-      return 'раз';
+      return variants[0];
     case 2:
     case 3:
     case 4:
-      return 'раза';
+      return variants[1];
     default:
-      return 'раз';
+      return variants[2];
   }
 }
