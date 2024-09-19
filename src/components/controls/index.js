@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { plural } from '../../utils';
 import './style.css';
 
-function Controls({ cart = {}, goToCart }) {
-  const count = Object.keys(cart).length;
-  const sum = Object.values(cart).reduce((acc, item) => acc + item.price * item.count, 0);
+function Controls({ cart = [], goToCart = () => {} }) {
+  const count = cart.length;
+  const sum = cart.reduce((acc, item) => acc + item.price * item.count, 0);
 
   return (
     <div className="Controls">
@@ -26,12 +26,8 @@ function Controls({ cart = {}, goToCart }) {
 }
 
 Controls.propTypes = {
-  cart: PropTypes.object,
+  cart: PropTypes.array,
   goToCart: PropTypes.func,
-};
-
-Controls.defaultProps = {
-  goToCart: () => {},
 };
 
 export default React.memo(Controls);

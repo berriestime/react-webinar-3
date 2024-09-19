@@ -18,7 +18,6 @@ function App({ store }) {
     onAddToCart: useCallback(
       code => {
         store.addToCart(code);
-        // console.log('Корзина:', store.getState().cart);
       },
       [store],
     ),

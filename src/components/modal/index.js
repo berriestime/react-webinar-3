@@ -2,6 +2,24 @@ import React from 'react';
 import './style.css';
 
 function Modal({ cart, onClose, onDeleteItem }) {
+  if (Object.keys(cart).length === 0) {
+    return (
+      <div className="Modal-wrapper">
+        <div className="Modal">
+          <div className="Modal-header">
+            <h2 className="Modal-title">Корзина</h2>
+            <button className="Modal-close" onClick={onClose}>
+              Закрыть
+            </button>
+          </div>
+          <div className="Modal-empty">
+            <span>Ваша корзина пуста</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const items = Object.values(cart).map(item => (
     <div key={item.code} className="Modal-item">
       <span className="Modal-item-title">{item.title}</span>

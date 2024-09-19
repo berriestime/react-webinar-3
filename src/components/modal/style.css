@@ -15,10 +15,11 @@
   flex-direction: column;
   background-color: white;
   border-radius: 10px;
+  width: 50vw;
+  height: 50vh;
 }
 
 .Modal > div {
-  width: 400px;
   padding: 20px;
 }
 
@@ -62,4 +63,14 @@
   background: #afafaf;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+}
+
+.Modal-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Modal-empty {
+  display: flex;
+  justify-content: center;
 }
