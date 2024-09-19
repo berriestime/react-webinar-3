@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { plural } from '../../utils';
 import './style.css';
 
 function Item(props) {
@@ -21,21 +20,9 @@ function Item(props) {
   };
 
   return (
-    <div
-      className={'Item' + (props.item.selected ? ' Item_selected' : '')}
-      onClick={callbacks.onClick}
-    >
+    <div className="Item">
       <div className="Item-code">{props.item.code}</div>
-      <div className="Item-title">
-        {props.item.title}{' '}
-        {count
-          ? ` | Выделяли ${count} ${plural(count, {
-              one: 'раз',
-              few: 'раза',
-              many: 'раз',
-            })}`
-          : ''}
-      </div>
+      <div className="Item-title">{props.item.title} </div>
       <div className="Item-price">{props.item.price}&nbsp;&#8381;</div>
       <div className="Item-actions">
         <button onClick={callbacks.onAddToCart}>Добавить</button>

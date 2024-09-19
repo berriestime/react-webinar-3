@@ -30,13 +30,6 @@ function App({ store }) {
       [store],
     ),
 
-    onSelectItem: useCallback(
-      code => {
-        store.selectItem(code);
-      },
-      [store],
-    ),
-
     onOpenModal: useCallback(() => {
       setIsModalOpen(true);
     }, []),
@@ -50,7 +43,7 @@ function App({ store }) {
     <PageLayout>
       <Head title="Магазин" />
       <Controls cart={store.getState().cart} goToCart={callbacks.onOpenModal} />
-      <List list={list} onAddToCart={callbacks.onAddToCart} onSelectItem={callbacks.onSelectItem} />
+      <List list={list} onAddToCart={callbacks.onAddToCart} />
       {isModalOpen && (
         <Modal
           onClose={callbacks.onCloseModal}
