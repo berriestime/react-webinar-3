@@ -36,7 +36,7 @@ function Item(props) {
             })}`
           : ''}
       </div>
-      <div className="Item-price">{props.item.price}&nbsp;₽</div>
+      <div className="Item-price">{props.item.price}&nbsp;&#8381;</div>
       <div className="Item-actions">
         <button onClick={callbacks.onAddToCart}>Добавить</button>
       </div>

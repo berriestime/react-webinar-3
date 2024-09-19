@@ -98,6 +98,17 @@ class Store {
       }),
     });
   }
+
+  getTotalCount() {
+    return this.state.list.reduce((total, item) => total + (item.selected ? item.count : 0), 0);
+  }
+
+  getTotalPrice() {
+    return this.state.list.reduce(
+      (total, item) => total + (item.selected ? item.price * item.count : 0),
+      0,
+    );
+  }
 }
 
 export default Store;

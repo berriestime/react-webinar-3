@@ -16,7 +16,7 @@ function App({ store }) {
     onAddToCart: useCallback(
       code => {
         store.addToCart(code);
-        console.log('Корзина:', store.getState().cart);
+        // console.log('Корзина:', store.getState().cart);
       },
       [store],
     ),
@@ -36,7 +36,7 @@ function App({ store }) {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <Controls goToCart={callbacks.onOpenModal} />
+      <Controls cart={store.getState().cart} goToCart={callbacks.onOpenModal} />
       <List list={list} onAddToCart={callbacks.onAddToCart} onSelectItem={callbacks.onSelectItem} />
     </PageLayout>
   );
