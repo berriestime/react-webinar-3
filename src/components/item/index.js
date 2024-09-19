@@ -14,9 +14,9 @@ function Item(props) {
         setCount(count + 1);
       }
     },
-    onDelete: e => {
+    onAddToCart: e => {
       e.stopPropagation();
-      props.onDelete(props.item.code);
+      props.onAddToCart(props.item.code);
     },
   };
 
@@ -36,8 +36,9 @@ function Item(props) {
             })}`
           : ''}
       </div>
+      <div className="Item-price">{props.item.price}&nbsp;₽</div>
       <div className="Item-actions">
-        <button onClick={callbacks.onDelete}>Удалить</button>
+        <button onClick={callbacks.onAddToCart}>Добавить</button>
       </div>
     </div>
   );
@@ -50,13 +51,13 @@ Item.propTypes = {
     selected: PropTypes.bool,
     count: PropTypes.number,
   }).isRequired,
-  onDelete: PropTypes.func,
   onSelect: PropTypes.func,
+  onAddToCart: PropTypes.func,
 };
 
 Item.defaultProps = {
-  onDelete: () => {},
   onSelect: () => {},
+  onAddToCart: () => {},
 };
 
 export default React.memo(Item);

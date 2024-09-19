@@ -41,13 +41,28 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
+   * Добавление товара в корзину
+   * @param code {Number} Код товара
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
-    });
+  addToCart(code) {
+    const cart = Array.isArray(this.state.cart) ? this.state.cart : [];
+
+    const itemInCart = cart.find(item => item.code === code);
+
+    if (itemInCart) {
+      this.setState({
+        ...this.state,
+        cart: cart.map(item => (item.code === code ? { ...item, count: item.count + 1 } : item)),
+      });
+    } else {
+      const item = this.state.list.find(item => item.code === code);
+      if (item) {
+        this.setState({
+          ...this.state,
+          cart: [...cart, { ...item, count: 1 }],
+        });
+      }
+    }
   }
 
   /**
