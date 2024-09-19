@@ -28,11 +28,14 @@
 }
 
 .Modal-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  border-bottom: 1px solid #ccc;
+  display: contents;
+}
+
+.Modal-item > *,
+.Modal-footer > * {
+  border-top: 1px dashed #ccc;
+  line-height: 63px;
+  padding: 0 0.5rem;
 }
 
 .Modal-item:last-child {
@@ -43,11 +46,13 @@
   flex: 1;
 }
 
+.Modal-item-price {
+  padding-right: 2.5rem;
+  text-align: right;
+}
+
 .Modal-item-count {
-  width: 40px;
-  text-align: center;
-  margin-left: 10px;
-  margin-right: 10px;
+  text-align: right;
 }
 
 .Modal-close,
@@ -65,9 +70,25 @@
   border-top-right-radius: 10px;
 }
 
+.Modal-body {
+  display: grid;
+  grid-template: 1fr / min-content 1fr min-content min-content min-content;
+  white-space: nowrap;
+}
+
 .Modal-footer {
-  display: flex;
-  justify-content: flex-end;
+  display: contents;
+  font-weight: 700;
+  text-align: right;
+}
+
+.Modal-total-text {
+  grid-column: 3/3;
+  padding-right: 2.5rem;
+}
+
+.Modal-total-price {
+  grid-column: 4/4;
 }
 
 .Modal-empty {

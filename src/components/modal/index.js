@@ -22,12 +22,15 @@ function Modal({ cart, onClose, onDeleteItem }) {
 
   const items = Object.values(cart).map(item => (
     <div key={item.code} className="Modal-item">
+      <span className="Modal-item-code">{item.code}</span>
       <span className="Modal-item-title">{item.title}</span>
       <span className="Modal-item-price">{item.price * item.count} &#8381;</span>
       <span className="Modal-item-count">{item.count} шт.</span>
-      <button className="Modal-item-remove" onClick={() => onDeleteItem(item.code)}>
-        Удалить{' '}
-      </button>
+      <span>
+        <button className="Modal-item-remove" onClick={() => onDeleteItem(item.code)}>
+          Удалить{' '}
+        </button>
+      </span>
     </div>
   ));
 
@@ -45,9 +48,15 @@ function Modal({ cart, onClose, onDeleteItem }) {
             Закрыть
           </button>
         </div>
-        {items}
-        <div className="Modal-footer">
-          <span className="Modal-total-price">Итого {totalPrice.toLocaleString()} &#8381;</span>
+        <div className="Modal-body">
+          {items}
+          <div className="Modal-footer">
+            <span></span>
+            <span></span>
+            <span className="Modal-total-text">Итого</span>
+            <span className="Modal-total-price">{totalPrice.toLocaleString()} &#8381;</span>
+            <span></span>
+          </div>
         </div>
       </div>
     </div>
