@@ -24,7 +24,10 @@ function Modal({ cart, onClose, onDeleteItem }) {
     <div key={item.code} className="Modal-item">
       <span className="Modal-item-code">{item.code}</span>
       <span className="Modal-item-title">{item.title}</span>
-      <span className="Modal-item-price">{item.price * item.count} &#8381;</span>
+      <div className="Modal-item-price">
+        {item.price.toLocaleString('ru-RU', { useGrouping: true, minimumFractionDigits: 0 })}
+        &nbsp;&#8381;
+      </div>
       <span className="Modal-item-count">{item.count} шт.</span>
       <span>
         <button className="Modal-item-remove" onClick={() => onDeleteItem(item.code)}>
@@ -54,7 +57,10 @@ function Modal({ cart, onClose, onDeleteItem }) {
             <span></span>
             <span></span>
             <span className="Modal-total-text">Итого</span>
-            <span className="Modal-total-price">{totalPrice.toLocaleString()} &#8381;</span>
+            <div className="Modal-total-price">
+              {totalPrice.toLocaleString('ru-RU', { useGrouping: true, minimumFractionDigits: 0 })}
+              &nbsp;&#8381;
+            </div>
             <span></span>
           </div>
         </div>
