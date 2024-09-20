@@ -25,7 +25,10 @@ function Item(props) {
     <div className="Item">
       <div className="Item-code">{props.item.code}</div>
       <div className="Item-title">{props.item.title} </div>
-      <div className="Item-price">{props.item.price}&nbsp;&#8381;</div>
+      <div className="Item-price">
+        {props.item.price.toLocaleString('ru-RU', { useGrouping: true, minimumFractionDigits: 0 })}
+        &nbsp;&#8381;
+      </div>
       <div className="Item-actions">
         <button className="Item-action" onClick={callbacks.onAddToCart}>
           Добавить
