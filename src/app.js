@@ -3,7 +3,7 @@ import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
-import Modal from './components/modal';
+import Cart from './components/cart';
 
 /**
  * Приложение
@@ -44,7 +44,7 @@ function App({ store }) {
       <Controls cart={store.getState().cart} goToCart={callbacks.onOpenModal} />
       <List list={list} onAddToCart={callbacks.onAddToCart} />
       {isModalOpen && (
-        <Modal
+        <Cart
           onClose={callbacks.onCloseModal}
           cart={store.getState().cart}
           onDeleteItem={callbacks.onDeletefromCart}

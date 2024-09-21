@@ -1,13 +1,14 @@
 import React from 'react';
 import './style.css';
+import Head from '../head';
 
-function Modal({ cart, onClose, onDeleteItem }) {
+function Cart({ cart, onClose, onDeleteItem }) {
   if (Object.keys(cart).length === 0) {
     return (
       <div className="Modal-wrapper">
         <div className="Modal">
           <div className="Modal-header">
-            <h2 className="Modal-title">Корзина</h2>
+            <Head title="Корзина" />
             <button className="Modal-close" onClick={onClose}>
               Закрыть
             </button>
@@ -46,7 +47,7 @@ function Modal({ cart, onClose, onDeleteItem }) {
     <div className="Modal-wrapper">
       <div className="Modal">
         <div className="Modal-header">
-          <h2 className="Modal-title">Корзина</h2>
+          <Head title="Корзина" />
           <button className="Modal-close" onClick={onClose}>
             Закрыть
           </button>
@@ -69,4 +70,4 @@ function Modal({ cart, onClose, onDeleteItem }) {
   );
 }
 
-export default Modal;
+export default Cart;
