@@ -45,7 +45,7 @@ class Store {
    * @param code {Number} Код товара
    */
   addToCart(code) {
-    const cart = Array.isArray(this.state.cart) ? this.state.cart : [];
+    const cart = this.state.cart;
 
     const itemInCart = cart.find(item => item.code === code);
 
