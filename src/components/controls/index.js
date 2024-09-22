@@ -16,7 +16,7 @@ const CartInfo = ({ count, sum }) => (
           one: 'товар',
           few: 'товара',
           many: 'товаров',
-        })} / ${sum > 0 ? `${sum.toLocaleString('ru-RU', { useGrouping: true, minimumFractionDigits: 0 })} ₽` : ''}`}</span>
+        })} / ${sum > 0 || count ? `${sum.toLocaleString('ru-RU', { useGrouping: true, minimumFractionDigits: 0 })} ₽` : ''}`}</span>
       </span>
     )}
   </div>
