@@ -48,6 +48,7 @@ function App({ store }) {
           onClose={callbacks.onCloseModal}
           cart={store.getState().cart}
           onDeleteItem={callbacks.onDeletefromCart}
+          totalPrice={store.getState().totalPrice}
         />
       )}
     </PageLayout>
