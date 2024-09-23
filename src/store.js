@@ -50,16 +50,26 @@ class Store {
     const itemInCart = cart.find(item => item.code === code);
 
     if (itemInCart) {
+      const newCount = itemInCart.count + 1;
+      const newTotalPrice = this.state.totalPrice + itemInCart.price;
+      const newTotalCount = this.state.totalCount + 1;
+
       this.setState({
         ...this.state,
-        cart: cart.map(item => (item.code === code ? { ...item, count: item.count + 1 } : item)),
+        cart: cart.map(item => (item.code === code ? { ...item, count: newCount } : item)),
+        totalPrice: newTotalPrice,
+        totalCount: newTotalCount,
       });
     } else {
       const item = this.state.list.find(item => item.code === code);
       if (item) {
+        const newTotalPrice = this.state.totalPrice + item.price;
+        const newTotalCount = this.state.totalCount + 1;
         this.setState({
           ...this.state,
           cart: [...cart, { ...item, count: 1 }],
+          totalPrice: newTotalPrice,
+          totalCount: newTotalCount,
         });
       }
     }
@@ -70,21 +80,30 @@ class Store {
    * @param code
    */
   deleteFromCart(code) {
-    this.setState({
-      ...this.state,
-      cart: this.state.cart.filter(item => item.code !== code),
-    });
-  }
+    const cart = this.state.cart;
+    const itemInCart = cart.find(item => item.code === code);
 
-  getTotalCount() {
-    return this.state.list.reduce((total, item) => total + (item.selected ? item.count : 0), 0);
-  }
+    if (itemInCart) {
+      const newCount = itemInCart.count - 1;
+      const newTotalPrice = this.state.totalPrice - itemInCart.price;
+      const newTotalCount = this.state.totalCount - 1;
 
-  getTotalPrice() {
-    return this.state.list.reduce(
-      (total, item) => total + (item.selected ? item.price * item.count : 0),
-      0,
-    );
+      if (newCount > 0) {
+        this.setState({
+          ...this.state,
+          cart: cart.map(item => (item.code === code ? { ...item, count: newCount } : item)),
+          totalPrice: newTotalPrice,
+          totalCount: newTotalCount,
+        });
+      } else {
+        this.setState({
+          ...this.state,
+          cart: cart.filter(item => item.code !== code),
+          totalPrice: newTotalPrice,
+          totalCount: newTotalCount,
+        });
+      }
+    }
   }
 }
 
