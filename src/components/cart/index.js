@@ -1,30 +1,20 @@
 import React from 'react';
 import './style.css';
-import Head from '../head';
-
-function CartHeader({ onClose }) {
-  return (
-    <div className="Modal-header">
-      <Head title="Корзина" />
-      <button className="Modal-close" onClick={onClose}>
-        Закрыть
-      </button>
-    </div>
-  );
-}
+import { cn as bem } from '@bem-react/classname';
+import ModalLayout from '../modal-layout';
 
 function CartItem({ item, onDeleteItem }) {
   return (
-    <div key={item.code} className="Modal-item">
-      <span className="Modal-item-code">{item.code}</span>
-      <span className="Modal-item-title">{item.title}</span>
-      <div className="Modal-item-price">
+    <div key={item.code} className="Cart-item">
+      <span className="Cart-item-code">{item.code}</span>
+      <span className="Cart-item-title">{item.title}</span>
+      <div className="Cart-item-price">
         {item.price.toLocaleString('ru-RU', { useGrouping: true, minimumFractionDigits: 0 })}
         &nbsp;&#8381;
       </div>
-      <span className="Modal-item-count">{item.count} шт.</span>
+      <span className="Cart-item-count">{item.count} шт.</span>
       <span>
-        <button className="Modal-item-remove" onClick={() => onDeleteItem(item.code)}>
+        <button className="Cart-item-remove" onClick={() => onDeleteItem(item.code)}>
           Удалить{' '}
         </button>
       </span>
@@ -34,11 +24,11 @@ function CartItem({ item, onDeleteItem }) {
 
 function CartFooter({ totalPrice }) {
   return (
-    <div className="Modal-footer">
+    <div className="Cart-footer">
       <span></span>
       <span></span>
-      <span className="Modal-total-text">Итого</span>
-      <div className="Modal-total-price">
+      <span className="Cart-total-text">Итого</span>
+      <div className="Cart-total-price">
         {totalPrice.toLocaleString('ru-RU', { useGrouping: true, minimumFractionDigits: 0 })}
         &nbsp;&#8381;
       </div>
@@ -47,39 +37,34 @@ function CartFooter({ totalPrice }) {
   );
 }
 
-function Cart({ cart, onClose, onDeleteItem }) {
+function Cart({ cart, onClose, onDeleteItem, totalPrice }) {
   if (Object.keys(cart).length === 0) {
     return (
-      <div className="Modal-wrapper">
-        <div className="Modal">
-          <CartHeader onClose={onClose} />
-          <div className="Modal-empty">
+      <ModalLayout onClose={onClose} title={'Корзина'}>
+        <div className="Cart">
+          <div className="Cart-empty">
             <span>Ваша корзина пуста</span>
           </div>
         </div>
-      </div>
+      </ModalLayout>
     );
   }
+
+  const cn = bem('Cart');
 
   const items = Object.values(cart).map(item => (
     <CartItem key={item.code} item={item} onDeleteItem={onDeleteItem} />
   ));
 
-  const totalPrice = Object.values(cart).reduce(
-    (total, item) => total + item.price * item.count,
-    0,
-  );
-
   return (
-    <div className="Modal-wrapper">
-      <div className="Modal">
-        <CartHeader onClose={onClose} />
-        <div className="Modal-body">
+    <ModalLayout onClose={onClose} title={'Корзина'}>
+      <div className={cn()}>
+        <div className={cn('body')}>
           {items}
           <CartFooter totalPrice={totalPrice} />
         </div>
       </div>
-    </div>
+    </ModalLayout>
   );
 }
 
