@@ -4,6 +4,7 @@ import { numberFormat } from '../../utils';
 import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import './style.css';
+import { Link } from 'react-router-dom';
 
 function ItemBasket({ onRemove = () => {}, item = {} }) {
   const cn = bem('ItemBasket');
@@ -13,7 +14,7 @@ function ItemBasket({ onRemove = () => {}, item = {} }) {
   };
 
   return (
-    <div className={cn()}>
+    <Link to={`/details/${item._id}`} className={cn()}>
       {/*<div className={cn('code')}>{item._id}</div>*/}
       <div className={cn('title')}>{item.title}</div>
       <div className={cn('right')}>
@@ -23,7 +24,7 @@ function ItemBasket({ onRemove = () => {}, item = {} }) {
           <button onClick={callbacks.onRemove}>Удалить</button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
