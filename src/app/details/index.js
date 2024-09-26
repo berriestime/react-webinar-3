@@ -8,6 +8,7 @@ import useStore from '../../store/use-store';
 import BasketTool from '../../components/basket-tool';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
+import Basket from '../basket';
 
 const cn = bem('Details');
 
@@ -28,10 +29,15 @@ function Details() {
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    addToBasket: useCallback(
+      () => store.actions.basket.addToBasket(itemData._id, itemData),
+      [store, itemData],
+    ),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
   };
+
+  const activeModal = useSelector(state => state.modals.name);
 
   if (!itemData)
     return (
@@ -41,34 +47,39 @@ function Details() {
     );
 
   return (
-    <PageLayout>
-      <Head title={itemData.title} />
-      <div className={cn('actions')}>
-        <Link to="/" className={cn('breadcrumbs')}>
-          Главная
-        </Link>
-        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-      </div>
-      <>
-        <div className={cn('item')}>
-          <div>{itemData.description}</div>
-          <div>
-            Страна производитель:{' '}
-            <b>
-              {itemData.madeIn.title} ({itemData.madeIn.code})
-            </b>
-          </div>
-          <div>
-            Категория: <b>{itemData.category.title}</b>
-          </div>
-          <div>
-            Год выпуска: <b>{itemData.edition}</b>
-          </div>
-          <div className={cn('item-price')}>Цена: {itemData.price.toLocaleString('ru')} ₽</div>
-          {/* <button onClick={callbacks.addToBasket(itemData._id)}>Добавить</button> */}
+    <>
+      <PageLayout>
+        <Head title={itemData.title} />
+        <div className={cn('actions')}>
+          <Link to="/" className={cn('breadcrumbs')}>
+            Главная
+          </Link>
+          <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
         </div>
-      </>
-    </PageLayout>
+        <>
+          <div className={cn('item')}>
+            <div>{itemData.description}</div>
+            <div>
+              Страна производитель:{' '}
+              <b>
+                {itemData.madeIn.title} ({itemData.madeIn.code})
+              </b>
+            </div>
+            <div>
+              Категория: <b>{itemData.category.title}</b>
+            </div>
+            <div>
+              Год выпуска: <b>{itemData.edition}</b>
+            </div>
+            <div className={cn('item-price')}>Цена: {itemData.price.toLocaleString('ru')} ₽</div>
+            <div>
+              <button onClick={callbacks.addToBasket}>Добавить</button>
+            </div>
+          </div>
+        </>
+      </PageLayout>
+      {activeModal === 'basket' && <Basket />}
+    </>
   );
 }
 

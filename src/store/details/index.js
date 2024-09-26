@@ -22,6 +22,7 @@ class Details extends StoreModule {
       {
         ...this.getState(),
         id,
+        data: null,
       },
       'Сохранен номер текущего товара',
     );

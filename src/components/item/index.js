@@ -9,7 +9,10 @@ function Item({ onAdd = () => {}, item = {} }) {
   const cn = bem('Item');
 
   const callbacks = {
-    onAdd: e => onAdd(item._id),
+    onAdd: e => {
+      e.preventDefault();
+      return onAdd(item._id);
+    },
   };
 
   return (
