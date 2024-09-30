@@ -1,12 +1,12 @@
 import { cn as bem } from '@bem-react/classname';
 import React from 'react';
-import BasketTool from '../../components/basket-tool';
-import Breadcrumb from '../../components/breadcrumb';
+import BasketTool from '../basket-tool';
+import Breadcrumb from '../breadcrumb';
 import './style.css';
 
-const cn = bem('DetailsActions');
+const cn = bem('Navigation');
 
-const DetailsActions = ({ callbacks, basketData }) => (
+const Navigation = ({ callbacks, basketData }) => (
   <div className={cn()}>
     <Breadcrumb />
     <BasketTool
@@ -17,4 +17,4 @@ const DetailsActions = ({ callbacks, basketData }) => (
   </div>
 );
 
-export default DetailsActions;
+export default Navigation;

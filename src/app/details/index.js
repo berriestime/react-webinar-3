@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import DetailsActions from '../../components/details-actions';
+import Navigation from '../../components/navigation';
 import DetailsBody from '../../components/details-body';
 import Head from '../../components/head';
 import PageLayout from '../../components/page-layout';
@@ -46,7 +46,7 @@ function Details() {
     <>
       <PageLayout>
         <Head title={itemData.title} />
-        <DetailsActions callbacks={callbacks} basketData={basketData} />
+        <Navigation callbacks={callbacks} basketData={basketData} />
         <DetailsBody itemData={itemData} callbacks={callbacks} />
       </PageLayout>
       {activeModal === 'basket' && <Basket />}
