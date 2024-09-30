@@ -1,21 +1,11 @@
-.Details-actions {
-  display: flex;
-  justify-content: space-between;
-}
-
-.Details-breadcrumbs {
-  padding: 20px;
-  font-size: 18px;
-}
-
-.Details-item {
+.Details {
   padding: 20px 40px;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.Details-item-price {
-  font-size: 24px;
-  font-weight: bold;
+.Details-actions {
+  display: flex;
+  justify-content: space-between;
 }

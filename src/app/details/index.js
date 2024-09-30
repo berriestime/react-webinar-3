@@ -1,13 +1,14 @@
-import { memo, useCallback, useEffect } from 'react';
-import { Link, useParams, useLocation } from 'react-router-dom';
+import { cn as bem } from '@bem-react/classname';
+import React, { memo, useCallback, useEffect } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+import DetailsActions from '../../components/details-actions';
+import DetailsBody from '../../components/details-body';
 import Head from '../../components/head';
 import PageLayout from '../../components/page-layout';
 import useSelector from '../../store/use-selector';
 import useStore from '../../store/use-store';
-import BasketTool from '../../components/basket-tool';
-import { cn as bem } from '@bem-react/classname';
-import './style.css';
 import Basket from '../basket';
+import './style.css';
 
 const cn = bem('Details');
 
@@ -20,7 +21,7 @@ function Details() {
     store.actions.details.load(id);
   }, [location]);
 
-  const select = useSelector(state => ({
+  const basketData = useSelector(state => ({
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
@@ -50,33 +51,8 @@ function Details() {
     <>
       <PageLayout>
         <Head title={itemData.title} />
-        <div className={cn('actions')}>
-          <Link to="/" className={cn('breadcrumbs')}>
-            Главная
-          </Link>
-          <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-        </div>
-        <>
-          <div className={cn('item')}>
-            <div>{itemData.description}</div>
-            <div>
-              Страна производитель:{' '}
-              <b>
-                {itemData.madeIn.title} ({itemData.madeIn.code})
-              </b>
-            </div>
-            <div>
-              Категория: <b>{itemData.category.title}</b>
-            </div>
-            <div>
-              Год выпуска: <b>{itemData.edition}</b>
-            </div>
-            <div className={cn('item-price')}>Цена: {itemData.price.toLocaleString('ru')} ₽</div>
-            <div>
-              <button onClick={callbacks.addToBasket}>Добавить</button>
-            </div>
-          </div>
-        </>
+        <DetailsActions callbacks={callbacks} basketData={basketData} />
+        <DetailsBody itemData={itemData} callbacks={callbacks} />
       </PageLayout>
       {activeModal === 'basket' && <Basket />}
     </>

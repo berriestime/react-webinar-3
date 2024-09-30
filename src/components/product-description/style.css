@@ -1,0 +1,11 @@
+.ProductDescription {
+  /* padding: 20px 40px; */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ProductDescription-price {
+  font-size: 24px;
+  font-weight: bold;
+}
