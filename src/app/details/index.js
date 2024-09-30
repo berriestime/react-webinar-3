@@ -1,4 +1,3 @@
-import { cn as bem } from '@bem-react/classname';
 import React, { memo, useCallback, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import DetailsActions from '../../components/details-actions';
@@ -8,9 +7,6 @@ import PageLayout from '../../components/page-layout';
 import useSelector from '../../store/use-selector';
 import useStore from '../../store/use-store';
 import Basket from '../basket';
-import './style.css';
-
-const cn = bem('Details');
 
 function Details() {
   const store = useStore();
