@@ -1,7 +1,6 @@
 import { memo, useCallback, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useLocation } from 'react-router-dom';
 import Head from '../../components/head';
-import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import useSelector from '../../store/use-selector';
 import useStore from '../../store/use-store';
@@ -15,10 +14,11 @@ const cn = bem('Details');
 function Details() {
   const store = useStore();
   const { id } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     store.actions.details.load(id);
-  }, []);
+  }, [location]);
 
   const select = useSelector(state => ({
     amount: state.basket.amount,
