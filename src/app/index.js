@@ -1,13 +1,20 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
 import Main from './main';
 import Basket from './basket';
-import useStore from '../store/use-store';
 import useSelector from '../store/use-selector';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Details from './details';
 
-/**
- * Приложение
- * @returns {React.ReactElement}
- */
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+  },
+  {
+    path: '/details/:id',
+    element: <Details />,
+  },
+]);
+
 function App() {
   const activeModal = useSelector(state => state.modals.name);
 
@@ -19,4 +26,10 @@ function App() {
   );
 }
 
-export default App;
+export default function AppRouter() {
+  return (
+    <RouterProvider router={router}>
+      <App />
+    </RouterProvider>
+  );
+}
