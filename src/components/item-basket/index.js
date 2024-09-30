@@ -14,9 +14,11 @@ function ItemBasket({ onRemove = () => {}, item = {} }) {
   };
 
   return (
-    <Link to={`/details/${item._id}`} className={cn()}>
-      {/*<div className={cn('code')}>{item._id}</div>*/}
-      <div className={cn('title')}>{item.title}</div>
+    <div className={cn()}>
+      <Link to={`/details/${item._id}`} className={cn()}>
+        {/*<div className={cn('code')}>{item._id}</div>*/}
+        <div className={cn('title')}>{item.title}</div>
+      </Link>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(item.price)} ₽</div>
         <div className={cn('cell')}>{numberFormat(item.amount || 0)} шт</div>
@@ -24,7 +26,7 @@ function ItemBasket({ onRemove = () => {}, item = {} }) {
           <button onClick={callbacks.onRemove}>Удалить</button>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 

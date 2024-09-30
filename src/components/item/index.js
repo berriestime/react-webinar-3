@@ -16,14 +16,16 @@ function Item({ onAdd = () => {}, item = {} }) {
   };
 
   return (
-    <Link to={`/details/${item._id}`} className={cn()}>
-      {/*<div className={cn('code')}>{item._id}</div>*/}
-      <div className={cn('title')}>{item.title}</div>
+    <div className={cn()}>
+      <Link to={`/details/${item._id}`}>
+        {/*<div className={cn('code')}>{item._id}</div>*/}
+        <div className={cn('title')}>{item.title}</div>
+      </Link>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(item.price)} ₽</div>
         <button onClick={callbacks.onAdd}>Добавить</button>
       </div>
-    </Link>
+    </div>
   );
 }
 

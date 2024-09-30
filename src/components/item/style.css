@@ -1,10 +1,12 @@
 .Item {
   display: flex;
-  justify-content: flex-start;
-  transition: background-color 1s;
+  justify-content: space-between;
   padding-left: 10px;
-  color: inherit;
-  text-decoration: inherit;
+}
+
+.Item > a {
+  text-decoration: none;
+  color: black;
 }
 
 .Item_selected {
