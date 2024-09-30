@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useEffect } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import DetailsActions from '../../components/details-actions';
 import DetailsBody from '../../components/details-body';
 import Head from '../../components/head';
@@ -11,11 +11,10 @@ import Basket from '../basket';
 function Details() {
   const store = useStore();
   const { id } = useParams();
-  const location = useLocation();
 
   useEffect(() => {
     store.actions.details.load(id);
-  }, [location]);
+  }, [id]);
 
   const basketData = useSelector(state => ({
     amount: state.basket.amount,
