@@ -1,0 +1,15 @@
+.AuthForm {
+  margin-left: 20px;
+}
+
+.AuthForm-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.AuthForm-field {
+  display: flex;
+  flex-direction: column;
+}
