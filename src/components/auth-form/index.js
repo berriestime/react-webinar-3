@@ -15,9 +15,9 @@ function AuthForm({ handleSubmit, login, setLogin, password, setPassword, error 
           <label>Пароль</label>
           <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
         </div>
+        {error && <div className={cn('error')}>{error}</div>}
         <button type="submit">Войти</button>
       </form>
-      {error && <div>{error}</div>}
     </div>
   );
 }

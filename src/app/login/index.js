@@ -6,6 +6,8 @@ import useSelector from '../../hooks/use-selector';
 import Spinner from '../../components/spinner';
 import AuthForm from '../../components/auth-form';
 import Auth from '../../components/auth';
+import { Link } from 'react-router-dom';
+import Navigation from '../../containers/navigation';
 
 function Login() {
   const [login, setLogin] = useState('');
@@ -17,7 +19,7 @@ function Login() {
 
     // Отправка запроса на авторизацию
     try {
-      const response = await fetch('http://query.rest/api/v1/users/sign', {
+      const response = await fetch('http://localhost:8010/api/v1/users/sign', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -27,11 +29,11 @@ function Login() {
       const data = await response.json();
       if (response.ok) {
         // Сохранение токена в localStorage или в состояние
-        localStorage.setItem('token', data.token);
+        localStorage.setItem('berriestime-token', data.token);
         // Переход на страницу профиля
-        history.push('/profile');
+        <Link to="/profile" />;
       } else {
-        setError(data.message);
+        setError(data.error.message);
       }
     } catch (error) {
       setError('Произошла ошибка при авторизации.');
@@ -48,7 +50,7 @@ function Login() {
       <Head title={select.article.title}>
         <LocaleSelect />
       </Head>
-      {/* <Navigation /> */}
+      <Navigation />
       <Spinner active={select.waiting}>
         <AuthForm
           handleSubmit={handleSubmit}
