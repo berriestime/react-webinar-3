@@ -6,6 +6,19 @@ import Select from '../../components/select';
 import Input from '../../components/input';
 import SideLayout from '../../components/side-layout';
 
+const getKey = (categoriesMap, category) => {
+  const keys = [category._key];
+
+  let parent = category.parent;
+  while (parent) {
+    const parentData = categoriesMap[parent._key];
+    keys.unshift(parentData._key);
+    parent = parentData.parent;
+  }
+
+  return { value: keys.join('-'), depth: keys.length - 1 };
+};
+
 /**
  * Контейнер со всеми фильтрами каталога
  */
@@ -38,19 +51,20 @@ function CatalogFilter() {
   }, []);
 
   // Форматирование списка категорий для Select
-  const formatCategoryOptions = items => {
-    let options = items.map(category => {
-      let prefix = '';
-      let parent = category.parent;
-      while (parent) {
-        prefix += '-';
-        const parentCategory = items.find(item => item._id === parent._id);
-        parent = parentCategory ? parentCategory.parent : null;
-      }
-      return { value: category._id, title: `${prefix} ${category.title}` };
+  const formatCategoryOptions = categories => {
+    const categoriesMap = categories.reduce((acc, item) => {
+      acc[item._key] = item;
+      return acc;
+    }, {});
+    categories.forEach(category => {
+      category.sortKey = getKey(categoriesMap, category);
+      category.title = `${'-'.repeat(category.sortKey.depth)} ${category.title}`;
+      category.value = category._id;
     });
-    options.unshift({ value: '', title: 'Все' });
-    return options;
+    const sortedItems = categories.toSorted((a, b) =>
+      a.sortKey.value.localeCompare(b.sortKey.value, undefined, { numeric: true }),
+    );
+    return sortedItems;
   };
 
   const callbacks = {
