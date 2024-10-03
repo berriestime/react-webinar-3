@@ -17,5 +17,9 @@
     "few": "товара",
     "many": "товаров",
     "other": "товара"
-  }
+  },
+  "profile.email": "email",
+  "profile.name": "Имя",
+  "profile.phone": "Телефон",
+  "profile.title": "Профиль"
 }

@@ -14,7 +14,7 @@ class ProfileState extends StoreModule {
   initState() {
     return {
       error: null,
-      token: null,
+      token: localStorage.getItem('berriestime-token'),
       user: null,
       waiting: false,
     };
@@ -55,7 +55,7 @@ class ProfileState extends StoreModule {
       }
 
       // Сохранение токена в localStorage или в состояние
-      localStorage.setItem('berriestime-token', data.token);
+      localStorage.setItem('berriestime-token', data.result.token);
 
       this.setState(
         {
@@ -75,6 +75,66 @@ class ProfileState extends StoreModule {
           waiting: false,
         },
         'Авторизация завершилась с ошибкой',
+      );
+      return false;
+    }
+  }
+
+  async getSelf() {
+    if (this.getState().user) return true;
+    if (!this.getState().token) return false;
+
+    this.setState(
+      {
+        ...this.getState(),
+        error: null,
+        waiting: true,
+      },
+      'Получение профиля',
+    );
+
+    try {
+      const response = await fetch(ENDPOINT_GET, {
+        method: 'GET',
+        headers: {
+          'X-Token': this.getState().token,
+        },
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        this.setState(
+          {
+            ...this.getState(),
+            error: data.error,
+            token: null,
+            waiting: false,
+          },
+          'Получение профиля завершилось с ошибкой',
+        );
+
+        localStorage.removeItem('berriestime-token');
+
+        return false;
+      }
+
+      this.setState(
+        {
+          ...this.getState(),
+          user: data.result,
+          waiting: false,
+        },
+        'Получение профиля успешно',
+      );
+      return true;
+    } catch (error) {
+      this.setState(
+        {
+          ...this.getState(),
+          error,
+          token: null,
+          waiting: false,
+        },
+        'Получение профиля завершилось с ошибкой',
       );
       return false;
     }

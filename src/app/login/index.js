@@ -9,6 +9,7 @@ import Auth from '../../components/auth';
 import { useNavigate } from 'react-router-dom';
 import Navigation from '../../containers/navigation';
 import useStore from '../../hooks/use-store';
+import useTranslate from '../../hooks/use-translate';
 
 function Login() {
   const [login, setLogin] = useState('');
@@ -25,13 +26,14 @@ function Login() {
   };
 
   const select = useSelector(state => ({
-    article: state.article.data,
-    waiting: state.article.waiting,
+    waiting: state.profile.waiting,
   }));
+
+  const { t } = useTranslate();
 
   return (
     <PageLayout head={<Auth />}>
-      <Head title={select.article.title}>
+      <Head title={t('title')}>
         <LocaleSelect />
       </Head>
       <Navigation />

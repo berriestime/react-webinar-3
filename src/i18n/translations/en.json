@@ -15,5 +15,9 @@
   "basket.articles": {
     "one": "article",
     "other": "articles"
-  }
+  },
+  "profile.email": "email",
+  "profile.name": "Name",
+  "profile.phone": "Phone",
+  "profile.title": "Profile"
 }
