@@ -27,8 +27,7 @@ function Main() {
   const { t } = useTranslate();
 
   return (
-    <PageLayout>
-      <Auth />
+    <PageLayout head={<Auth />}>
       <Head title={t('title')}>
         <LocaleSelect />
       </Head>

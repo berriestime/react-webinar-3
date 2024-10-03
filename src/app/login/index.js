@@ -5,6 +5,7 @@ import LocaleSelect from '../../containers/locale-select';
 import useSelector from '../../hooks/use-selector';
 import Spinner from '../../components/spinner';
 import AuthForm from '../../components/auth-form';
+import Auth from '../../components/auth';
 
 function Login() {
   const [login, setLogin] = useState('');
@@ -43,7 +44,7 @@ function Login() {
   }));
 
   return (
-    <PageLayout>
+    <PageLayout head={<Auth />}>
       <Head title={select.article.title}>
         <LocaleSelect />
       </Head>
