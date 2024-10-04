@@ -21,6 +21,15 @@ function Article() {
   // Параметры из пути /articles/:id
   const params = useParams();
 
+  const userData = useSelector(state => ({
+    email: state.profile.user?.email,
+    error: state.profile.error,
+    name: state.profile.user?.profile.name,
+    phone: state.profile.user?.profile.phone,
+    token: state.profile.token,
+    waiting: state.profile.waiting,
+  }));
+
   useInit(() => {
     store.actions.article.load(params.id);
   }, [params.id]);
@@ -38,7 +47,15 @@ function Article() {
   };
 
   return (
-    <PageLayout head={<Auth />}>
+    <PageLayout
+      head={
+        <Auth
+          isAuthenticated={select.user}
+          onLogout={store.actions.profile.logout}
+          user={userData}
+        />
+      }
+    >
       <Head title={select.article.title}>
         <LocaleSelect />
       </Head>

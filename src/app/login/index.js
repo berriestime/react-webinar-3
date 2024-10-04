@@ -18,6 +18,15 @@ function Login() {
   const navigate = useNavigate();
   const error = useSelector(state => state.profile.error);
 
+  const userData = useSelector(state => ({
+    email: state.profile.user?.email,
+    error: state.profile.error,
+    name: state.profile.user?.profile.name,
+    phone: state.profile.user?.profile.phone,
+    token: state.profile.token,
+    waiting: state.profile.waiting,
+  }));
+
   const handleSubmit = async event => {
     event.preventDefault();
 
@@ -32,7 +41,15 @@ function Login() {
   const { t } = useTranslate();
 
   return (
-    <PageLayout head={<Auth />}>
+    <PageLayout
+      head={
+        <Auth
+          isAuthenticated={userData.token}
+          onLogout={() => store.actions.profile.logout()}
+          user={userData}
+        />
+      }
+    >
       <Head title={t('title')}>
         <LocaleSelect />
       </Head>

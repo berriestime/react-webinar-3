@@ -35,7 +35,15 @@ function Profile() {
   const { t } = useTranslate();
 
   return (
-    <PageLayout head={<Auth />}>
+    <PageLayout
+      head={
+        <Auth
+          isAuthenticated={userData.token}
+          onLogout={() => store.actions.profile.logout()}
+          user={userData}
+        />
+      }
+    >
       <Head title={t('title')}>
         <LocaleSelect />
       </Head>

@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
@@ -9,12 +9,22 @@ import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
 import Auth from '../../components/auth';
+import useSelector from '../../hooks/use-selector';
 
 /**
  * Главная страница - первичная загрузка каталога
  */
 function Main() {
   const store = useStore();
+
+  const userData = useSelector(state => ({
+    email: state.profile.user?.email,
+    error: state.profile.error,
+    name: state.profile.user?.profile.name,
+    phone: state.profile.user?.profile.phone,
+    token: state.profile.token,
+    waiting: state.profile.waiting,
+  }));
 
   useInit(
     () => {
@@ -24,10 +34,24 @@ function Main() {
     true,
   );
 
+  useEffect(() => {
+    if (userData.token && !userData.name) {
+      store.actions.profile.getSelf();
+    }
+  }, [userData.token, userData.name, store.actions.profile]);
+
   const { t } = useTranslate();
 
   return (
-    <PageLayout head={<Auth />}>
+    <PageLayout
+      head={
+        <Auth
+          isAuthenticated={userData.token}
+          onLogout={() => store.actions.profile.logout()}
+          user={userData}
+        />
+      }
+    >
       <Head title={t('title')}>
         <LocaleSelect />
       </Head>

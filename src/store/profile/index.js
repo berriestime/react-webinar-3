@@ -139,6 +139,18 @@ class ProfileState extends StoreModule {
       return false;
     }
   }
+
+  async logout() {
+    localStorage.removeItem('berriestime-token');
+    this.setState(
+      {
+        ...this.getState(),
+        token: null,
+        user: null,
+      },
+      'Выход из профиля',
+    );
+  }
 }
 
 export default ProfileState;
