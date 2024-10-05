@@ -12,9 +12,11 @@ class ProfileState extends StoreModule {
    * @return {Object}
    */
   initState() {
+    const token = localStorage.getItem('berriestime-token');
+    this.getSelf(token);
     return {
       error: null,
-      token: localStorage.getItem('berriestime-token'),
+      isAuthenticated: false,
       user: null,
       waiting: false,
     };
@@ -25,7 +27,7 @@ class ProfileState extends StoreModule {
       {
         ...this.getState(),
         error: null,
-        token: null,
+        isAuthenticated: false,
         user: null,
         waiting: true,
       },
@@ -60,7 +62,7 @@ class ProfileState extends StoreModule {
       this.setState(
         {
           ...this.getState(),
-          token: data.result.token,
+          isAuthenticated: true,
           user: data.result.user,
           waiting: false,
         },
@@ -80,9 +82,8 @@ class ProfileState extends StoreModule {
     }
   }
 
-  async getSelf() {
-    if (this.getState().user) return true;
-    if (!this.getState().token) return false;
+  async getSelf(token) {
+    if (!token) return false;
 
     this.setState(
       {
@@ -97,7 +98,7 @@ class ProfileState extends StoreModule {
       const response = await fetch(ENDPOINT_GET, {
         method: 'GET',
         headers: {
-          'X-Token': this.getState().token,
+          'X-Token': token,
         },
       });
       const data = await response.json();
@@ -106,7 +107,7 @@ class ProfileState extends StoreModule {
           {
             ...this.getState(),
             error: data.error,
-            token: null,
+            isAuthenticated: false,
             waiting: false,
           },
           'Получение профиля завершилось с ошибкой',
@@ -120,6 +121,7 @@ class ProfileState extends StoreModule {
       this.setState(
         {
           ...this.getState(),
+          isAuthenticated: true,
           user: data.result,
           waiting: false,
         },
@@ -131,7 +133,7 @@ class ProfileState extends StoreModule {
         {
           ...this.getState(),
           error,
-          token: null,
+          isAuthenticated: false,
           waiting: false,
         },
         'Получение профиля завершилось с ошибкой',
@@ -145,7 +147,7 @@ class ProfileState extends StoreModule {
     this.setState(
       {
         ...this.getState(),
-        token: null,
+        isAuthenticated: false,
         user: null,
       },
       'Выход из профиля',

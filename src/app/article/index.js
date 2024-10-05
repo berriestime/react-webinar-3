@@ -22,12 +22,9 @@ function Article() {
   const params = useParams();
 
   const userData = useSelector(state => ({
-    email: state.profile.user?.email,
-    error: state.profile.error,
     name: state.profile.user?.profile.name,
-    phone: state.profile.user?.profile.phone,
-    token: state.profile.token,
     waiting: state.profile.waiting,
+    isAuthenticated: state.profile.isAuthenticated,
   }));
 
   useInit(() => {
@@ -50,9 +47,9 @@ function Article() {
     <PageLayout
       head={
         <Auth
-          isAuthenticated={select.user}
+          isAuthenticated={userData.isAuthenticated}
           onLogout={store.actions.profile.logout}
-          user={userData}
+          name={userData.name}
         />
       }
     >

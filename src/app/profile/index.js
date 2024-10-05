@@ -23,13 +23,12 @@ function Profile() {
     error: state.profile.error,
     name: state.profile.user?.profile.name,
     phone: state.profile.user?.profile.phone,
-    token: state.profile.token,
     waiting: state.profile.waiting,
+    isAuthenticated: state.profile.isAuthenticated,
   }));
 
-  if (!userData.waiting && !userData.name) store.actions.profile.getSelf();
   useEffect(() => {
-    if (!userData.token || userData.error) return navigate('/login');
+    if (!userData.isAuthenticated || userData.error) return navigate('/login');
   }, [userData, navigate]);
 
   const { t } = useTranslate();
@@ -38,9 +37,9 @@ function Profile() {
     <PageLayout
       head={
         <Auth
-          isAuthenticated={userData.token}
+          isAuthenticated={userData.isAuthenticated}
           onLogout={() => store.actions.profile.logout()}
-          user={userData}
+          name={userData.name}
         />
       }
     >

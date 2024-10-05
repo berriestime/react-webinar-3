@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Auth({ isAuthenticated, onLogout, user }) {
+function Auth({ isAuthenticated, onLogout, name }) {
   const cn = bem('Auth');
   return (
     <div className={cn()}>
       {isAuthenticated ? (
         <>
           <Link to="/profile">
-            <div>{user.name}</div>
+            <div>{name}</div>
           </Link>
           <button type="button" className={cn('logout')} onClick={onLogout}>
             Выход

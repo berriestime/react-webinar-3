@@ -19,12 +19,9 @@ function Login() {
   const error = useSelector(state => state.profile.error);
 
   const userData = useSelector(state => ({
-    email: state.profile.user?.email,
-    error: state.profile.error,
     name: state.profile.user?.profile.name,
-    phone: state.profile.user?.profile.phone,
-    token: state.profile.token,
     waiting: state.profile.waiting,
+    isAuthenticated: state.profile.isAuthenticated,
   }));
 
   const handleSubmit = async event => {
@@ -44,9 +41,9 @@ function Login() {
     <PageLayout
       head={
         <Auth
-          isAuthenticated={userData.token}
+          isAuthenticated={userData.isAuthenticated}
           onLogout={() => store.actions.profile.logout()}
-          user={userData}
+          name={userData.name}
         />
       }
     >
