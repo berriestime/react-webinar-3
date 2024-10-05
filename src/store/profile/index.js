@@ -1,7 +1,7 @@
 import StoreModule from '../module';
 
-const ENDPOINT_SIGN = 'http://localhost:8010/api/v1/users/sign';
-const ENDPOINT_GET = 'http://localhost:8010/api/v1/users/self';
+const ENDPOINT_SIGN = '/api/v1/users/sign';
+const ENDPOINT_GET = '/api/v1/users/self';
 
 /**
  * Состояние профиля
