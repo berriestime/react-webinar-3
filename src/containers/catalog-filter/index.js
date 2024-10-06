@@ -12,6 +12,7 @@ const getKey = (categoriesMap, category) => {
   let parent = category.parent;
   while (parent) {
     const parentData = categoriesMap[parent._key];
+    if (!parentData) break;
     keys.unshift(parentData._key);
     parent = parentData.parent;
   }
@@ -34,7 +35,7 @@ function CatalogFilter() {
 
   // Получение списка категорий из API
   useEffect(() => {
-    fetch('/api/v1/categories')
+    fetch('/api/v1/categories?limit=*')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -43,6 +44,7 @@ function CatalogFilter() {
       })
       .then(data => {
         const categoryOptions = formatCategoryOptions(data.result.items);
+        categoryOptions.unshift({ sortKey: '0', value: '', title: 'Все' });
         setCategories(categoryOptions);
       })
       .catch(error => {
