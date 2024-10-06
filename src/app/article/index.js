@@ -48,7 +48,7 @@ function Article() {
       head={
         <Auth
           isAuthenticated={userData.isAuthenticated}
-          onLogout={store.actions.profile.logout}
+          onLogout={() => store.actions.profile.logout()}
           name={userData.name}
         />
       }
