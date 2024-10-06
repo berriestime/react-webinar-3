@@ -17,7 +17,7 @@ const getKey = (categoriesMap, category) => {
     parent = parentData.parent;
   }
 
-  return { value: keys.join('-'), depth: keys.length - 1 };
+  return { value: keys.join('- '), depth: keys.length - 1 };
 };
 
 /**
@@ -60,7 +60,7 @@ function CatalogFilter() {
     }, {});
     categories.forEach(category => {
       category.sortKey = getKey(categoriesMap, category);
-      category.title = `${'-'.repeat(category.sortKey.depth)} ${category.title}`;
+      category.title = `${'- '.repeat(category.sortKey.depth)} ${category.title}`;
       category.value = category._id;
     });
     const sortedItems = categories.toSorted((a, b) =>
@@ -106,6 +106,7 @@ function CatalogFilter() {
         onChange={callbacks.onSearch}
         placeholder={t('search.placeholder')}
         delay={1000}
+        theme="big"
       />
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </SideLayout>
